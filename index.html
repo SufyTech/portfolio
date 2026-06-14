@@ -791,7 +791,7 @@ footer { background: var(--ink); padding: 1.5rem var(--section-px); display: fle
         <div class="proj-index">02 — 2026</div>
         <div class="proj-status">Live · Production</div>
         <div class="proj-tech">
-          <div class="proj-tech-item">AutoGen Multi-Agent</div>
+          <div class="proj-tech-item">LangGraph Multi-Agent</div>
           <div class="proj-tech-item">Groq LLM (Llama 3.1)</div>
           <div class="proj-tech-item">FastAPI · Docker</div>
           <div class="proj-tech-item">React Frontend</div>
@@ -806,10 +806,9 @@ footer { background: var(--ink); padding: 1.5rem var(--section-px); display: fle
 
       <div class="proj-body">
         <h3 class="proj-title">AI Support Pro</h3>
-        <p class="proj-subtitle">Autonomous multi-agent customer support — zero human intervention, end-to-end ticket resolution</p>
-
+        <p class="proj-subtitle">LangGraph-orchestrated multi-agent support system with RAG pipeline and real-time observability dashboard</p>
         <div class="proj-why">
-          <span class="why-chip">AutoGen over LangChain agents — native multi-agent orchestration</span>
+          <span class="why-chip">LangGraph over AutoGen — explicit graph routing, testable paths</span>
           <span class="why-chip">Groq over OpenAI — lower latency for real-time ticket replies</span>
           <span class="why-chip">Docker — environment parity dev → prod, zero surprise deploys</span>
         </div>
@@ -839,8 +838,8 @@ footer { background: var(--ink); padding: 1.5rem var(--section-px); display: fle
           </div>
           <div class="arch-decision-row">
             <div class="arch-decision-cell">Agent framework</div>
-            <div class="arch-decision-cell chosen">AutoGen</div>
-            <div class="arch-decision-cell">Native multi-agent orchestration with built-in agent-to-agent messaging; LangChain requires more boilerplate for the same coordination patterns</div>
+            <div class="arch-decision-cell chosen">LangGraph</div>
+            <div class="arch-decision-cell">Routing logic is explicit graph code, not prompt instructions — makes escalation paths testable and debuggable. AutoGen's conversation model is harder to control deterministically</div>
           </div>
           <div class="arch-decision-row">
             <div class="arch-decision-cell">LLM inference</div>
@@ -877,11 +876,11 @@ footer { background: var(--ink); padding: 1.5rem var(--section-px); display: fle
         <ul class="proj-bullets">
           <li class="proj-bullet">
             <span class="proj-bullet-num">01</span>
-            <span class="proj-bullet-text"><strong>Zero-human ticket resolution</strong> via AutoGen multi-agent orchestration: Classification Agent identifies intent and category, Triage Agent assigns priority, Reply Agent drafts and sends a personalised response. No human in the loop.</span>
+            <span class="proj-bullet-text"><strong>LangGraph-orchestrated routing</strong> with two explicit paths: normal tickets flow through triage → escalation check → knowledge → response agents; urgent/fraud tickets route directly to escalation response and human handoff. Graph edges are code, not prompts.
           </li>
           <li class="proj-bullet">
             <span class="proj-bullet-num">02</span>
-            <span class="proj-bullet-text"><strong>4-agent specialisation</strong> — Classification, Triage, Reply, and Knowledge agents each own a single responsibility. Separation of concerns means each agent can be independently tuned without breaking the others.</span>
+            <span class="proj-bullet-text"><strong>RAG pipeline + Observability</strong> — ChromaDB vector store with sentence-transformers embeddings answers knowledge base queries with cited sources. Real-time observability dashboard tracks agent execution frequency, escalation rate, and ticket volume live.
           </li>
           <li class="proj-bullet">
             <span class="proj-bullet-num">03</span>
