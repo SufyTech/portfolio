@@ -28,7 +28,7 @@
   --ff-mono:  'DM Mono', monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
+html{font-size:16px;scroll-behavior:smooth;scroll-padding-top:90px}
 body{
   background:var(--bg);color:var(--text);
   font-family:var(--ff-sans);font-weight:300;
@@ -148,16 +148,23 @@ nav.scrolled{
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
+.hero-name-row{display:flex;align-items:center;gap:2.5rem;margin-bottom:3rem}
 .hero-name{
   font-family:var(--ff-serif);
   font-size:clamp(4.5rem,12vw,11rem);
   font-weight:400;line-height:.9;letter-spacing:-.025em;color:var(--text);
-  margin-bottom:3rem;overflow:visible;
+  overflow:visible;
 }
 .hero-name .lw{display:block;overflow:hidden}
 .hero-char{display:inline-block;transform:translateY(110%);opacity:0;animation:charIn .65s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes charIn{to{transform:translateY(0);opacity:1}}
 .hero-name .italic-line{font-style:italic;color:var(--accent)}
+.hero-name-visual{display:none;width:200px;height:200px;flex-shrink:0}
+#heroCanvas{width:100%;height:100%;display:block}
+@media(min-width:1100px){
+  .hero-name{font-size:clamp(4.5rem,9vw,9rem)}
+  .hero-name-visual{display:flex;align-items:center;justify-content:center}
+}
 
 .hero-bottom{
   display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;
@@ -274,25 +281,6 @@ nav.scrolled{
 .proc-title{font-family:var(--ff-serif);font-size:1.15rem;color:var(--text);margin-bottom:.5rem}
 .proc-desc{font-size:.82rem;color:var(--muted2);line-height:1.7}
 
-/* ── CTA BANNER ── */
-.cta-banner{
-  background:var(--accent2);padding:4rem 2.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:2rem;flex-wrap:wrap;border-bottom:1px solid var(--border);
-}
-.cta-banner-text{font-family:var(--ff-serif);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:400;color:var(--cream);line-height:1.1}
-.cta-banner-text em{font-style:italic;color:var(--accent)}
-.cta-banner-btn{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  border:2px solid var(--cream);color:var(--cream);padding:1rem 2.2rem;
-  position:relative;overflow:hidden;transition:color .25s;flex-shrink:0;
-}
-.cta-banner-btn::before{content:'';position:absolute;inset:0;background:var(--cream);transform:translateY(101%);transition:transform .32s cubic-bezier(.16,1,.3,1)}
-.cta-banner-btn:hover{color:var(--accent2)}
-.cta-banner-btn:hover::before{transform:translateY(0)}
-.cta-banner-btn span{position:relative;z-index:1}
-
 /* ── CONTACT ── */
 #contact{background:var(--surface)}
 .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
@@ -330,13 +318,32 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 .book-overlay.open{opacity:1;pointer-events:all}
 .book-box{
   background:var(--surface);border:1px solid var(--border);
-  width:100%;max-width:760px;max-height:88vh;
-  display:flex;flex-direction:column;overflow:hidden;
+  width:100%;max-width:980px;max-height:88vh;
+  display:flex;flex-direction:row;overflow:hidden;
   transform:translateY(24px) scale(.97);
   transition:transform .4s cubic-bezier(.16,1,.3,1);
   box-shadow:0 40px 120px rgba(0,0,0,.5);
 }
 .book-overlay.open .book-box{transform:translateY(0) scale(1)}
+.book-main{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.book-visual{
+  width:240px;flex-shrink:0;position:relative;overflow:hidden;
+  border-left:1px solid var(--border);
+  background:linear-gradient(165deg,var(--surface2) 0%,var(--bg) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:1.5rem 1.25rem;gap:1rem;
+}
+.book-visual-glow{
+  position:absolute;top:10%;left:50%;transform:translateX(-50%);
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(184,224,160,.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+#bookCanvas{width:100%;height:240px;display:block;position:relative;z-index:1}
+.book-visual-tag{
+  font-family:var(--ff-mono);font-size:.56rem;letter-spacing:.05em;color:var(--muted);
+  text-align:center;line-height:1.6;position:relative;z-index:1;
+}
 .book-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:1.5rem 1.75rem;border-bottom:1px solid var(--border);flex-shrink:0;
@@ -365,7 +372,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 @keyframes loadPulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
 .book-loading-label{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .book-loading-dots{display:flex;gap:.3rem}
-.book-iframe-wrap{width:100%;height:560px}
+.book-iframe-wrap{width:100%;height:min(560px,65vh)}
 .book-iframe-wrap iframe{width:100%;height:100%;border:none;background:var(--surface);display:block}
 .book-footer{
   padding:.85rem 1.75rem;border-top:1px solid var(--border);flex-shrink:0;
@@ -376,6 +383,10 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 .book-footer-alt{font-family:var(--ff-mono);font-size:.56rem;letter-spacing:.06em;color:var(--muted)}
 .book-footer-alt a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
 .book-footer-alt a:hover{border-color:var(--accent)}
+@media(max-width:860px){
+  .book-box{max-width:640px}
+  .book-visual{display:none}
+}
 @media(max-width:600px){
   .book-overlay{padding:0}
   .book-box{max-width:100%;height:100%;max-height:100%}
@@ -405,9 +416,28 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
   .proj-metric-val,.proj-metric-label{text-align:left}
   .exp-row{grid-template-columns:1fr;gap:.65rem}
   .process-grid{grid-template-columns:1fr}
-  .cta-banner{flex-direction:column;align-items:flex-start}
   footer{padding:1.25rem 1.5rem}
 }
+@media(max-width:480px){
+  html{scroll-padding-top:64px}
+  nav{padding:.8rem 1rem}
+  .nav-logo{font-size:.6rem}
+  .cal-btn{font-size:.58rem;padding:.4rem .85rem;gap:.3rem}
+  .hero-eyebrow{gap:.6rem}
+  .hero-name{font-size:clamp(2.6rem,16vw,4rem)}
+  .hero-pitch{font-size:.9rem}
+  .section{padding:3.5rem 1.25rem}
+  #hero{padding:0 1.25rem 3.5rem}
+  .svc-card{padding:1.75rem 1.5rem}
+  .proj-row{padding:1.75rem 1.25rem}
+  .exp-row{padding:1.5rem 0}
+  .book-header{padding:1rem 1rem}
+  .book-title{font-size:1.1rem}
+  .book-footer{padding:.7rem 1rem}
+  .contact-link{padding:1rem 1.1rem}
+  .contact-headline{font-size:clamp(2rem,11vw,2.8rem)}
+}
+
 </style>
 </head>
 <body>
@@ -442,10 +472,15 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
       <span class="hero-eyebrow-label">AI Engineer · Pune, India · Remote</span>
       <span class="hero-avail">Open to 2 projects</span>
     </div>
-    <h1 class="hero-name" aria-label="Sufiyan Khan">
-      <span class="lw" id="heroL1"></span>
-      <span class="lw italic-line" id="heroL2"></span>
-    </h1>
+    <div class="hero-name-row">
+      <h1 class="hero-name" aria-label="Sufiyan Khan">
+        <span class="lw" id="heroL1"></span>
+        <span class="lw italic-line" id="heroL2"></span>
+      </h1>
+      <div class="hero-name-visual" id="heroNameVisual">
+        <canvas id="heroCanvas"></canvas>
+      </div>
+    </div>
     <div class="hero-bottom">
       <p class="hero-pitch">
         I build <strong>production AI systems</strong> for businesses —
@@ -612,11 +647,6 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
   </div>
 </section>
 
-<div class="cta-banner reveal">
-  <div class="cta-banner-text">Ready to automate<br><em>your lead flow?</em></div>
-  <button type="button" class="cta-banner-btn cal-btn" id="bannerCalBtn"><span>Schedule a Free Call →</span></button>
-</div>
-
 <section id="contact" class="section">
   <div class="contact-inner">
     <div>
@@ -645,36 +675,46 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 </footer>
 
 <!-- Custom-designed booking modal — themed header/footer are ours,
-     Cal.com's inline booking page (default, unstyled) lives inside the body. -->
+     Cal.com's inline booking page (default, unstyled) lives inside the body.
+     book-visual is a lightweight WebGL panel (desktop-only, hidden on
+     tablet/mobile) — purely decorative, paused while the modal is closed. -->
 <div class="book-overlay" id="bookOverlay">
   <div class="book-box">
-    <div class="book-header">
-      <div class="book-header-left">
-        <span class="book-eyebrow">Open to 2 projects</span>
-        <span class="book-title">Let's talk.</span>
-      </div>
-      <button type="button" class="book-close" id="bookClose" aria-label="Close">✕</button>
-    </div>
-    <div class="book-body">
-      <div class="book-loading" id="bookLoading">
-        <div class="book-loading-dots">
-          <span class="book-loading-dot"></span>
-          <span class="book-loading-dot"></span>
-          <span class="book-loading-dot"></span>
+    <div class="book-main">
+      <div class="book-header">
+        <div class="book-header-left">
+          <span class="book-eyebrow">Open to 2 projects</span>
+          <span class="book-title">Let's talk.</span>
         </div>
-        <span class="book-loading-label">Loading calendar…</span>
+        <button type="button" class="book-close" id="bookClose" aria-label="Close">✕</button>
       </div>
-      <div class="book-iframe-wrap">
-        <iframe id="bookFrame" title="Schedule a call with Sufiyan Khan" loading="lazy"></iframe>
+      <div class="book-body">
+        <div class="book-loading" id="bookLoading">
+          <div class="book-loading-dots">
+            <span class="book-loading-dot"></span>
+            <span class="book-loading-dot"></span>
+            <span class="book-loading-dot"></span>
+          </div>
+          <span class="book-loading-label">Loading calendar…</span>
+        </div>
+        <div class="book-iframe-wrap">
+          <iframe id="bookFrame" title="Schedule a call with Sufiyan Khan" loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="book-footer">
+        <span class="book-footer-note">30 min · Free · No commitment</span>
+        <span class="book-footer-alt">Prefer email? <a href="mailto:suzkhan135@gmail.com">suzkhan135@gmail.com</a></span>
       </div>
     </div>
-    <div class="book-footer">
-      <span class="book-footer-note">30 min · Free · No commitment</span>
-      <span class="book-footer-alt">Prefer email? <a href="mailto:suzkhan135@gmail.com">suzkhan135@gmail.com</a></span>
+    <div class="book-visual" id="bookVisual">
+      <div class="book-visual-glow"></div>
+      <canvas id="bookCanvas"></canvas>
+      <span class="book-visual-tag">Real-time WebGL — built the same way I build for clients</span>
     </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script>
 /* LOADER */
 (function(){
@@ -712,6 +752,77 @@ window.addEventListener('scroll',()=>{heroBg.style.transform=`translate(-50%,cal
   'Khan.'.split('').forEach((ch,i)=>{const s=document.createElement('span');s.className='hero-char';s.textContent=ch===' '?'\u00a0':ch;s.style.animationDelay=(.7+i*.055)+'s';l2.appendChild(s)});
 })();
 
+/* HERO 3D VISUAL — desktop only (≥1100px, gated below so it's never set
+   up on smaller screens at all). Starts ~2.2s after load so it doesn't
+   compete with the loader/name-reveal animation, and pauses whenever
+   the hero scrolls out of view to avoid burning cycles for nothing. */
+let heroCtx=null, heroRAF=null;
+function setupHeroVisual(){
+  if(heroCtx || typeof THREE==='undefined') return;
+  if(!window.matchMedia('(min-width:1100px)').matches) return;
+  const canvas=document.getElementById('heroCanvas');
+  if(!canvas) return;
+  const w=canvas.clientWidth||200, h=canvas.clientHeight||200;
+  if(!w||!h) return;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setSize(w,h,false);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,w/h,0.1,100);
+  camera.position.z=5;
+
+  const core=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1,1),
+    new THREE.MeshBasicMaterial({color:0xb8e0a0,wireframe:true,transparent:true,opacity:.9})
+  );
+  scene.add(core);
+
+  const ring=new THREE.Mesh(
+    new THREE.TorusGeometry(1.7,0.045,8,80),
+    new THREE.MeshBasicMaterial({color:0x52d68a,transparent:true,opacity:.55})
+  );
+  ring.rotation.x=Math.PI/2.6;
+  scene.add(ring);
+
+  const ring2=new THREE.Mesh(
+    new THREE.TorusGeometry(1.95,0.03,8,80),
+    new THREE.MeshBasicMaterial({color:0xb8e0a0,transparent:true,opacity:.28})
+  );
+  ring2.rotation.x=Math.PI/1.8;
+  ring2.rotation.y=Math.PI/5;
+  scene.add(ring2);
+
+  heroCtx={renderer,scene,camera,core,ring,ring2};
+}
+function startHeroVisual(){
+  setupHeroVisual();
+  if(!heroCtx || heroRAF) return;
+  const {renderer,scene,camera,core,ring,ring2}=heroCtx;
+  (function tick(){
+    heroRAF=requestAnimationFrame(tick);
+    core.rotation.x+=0.0022; core.rotation.y+=0.0032;
+    ring.rotation.z+=0.0035;
+    ring2.rotation.z-=0.0022;
+    renderer.render(scene,camera);
+  })();
+}
+function stopHeroVisual(){
+  if(heroRAF){cancelAnimationFrame(heroRAF);heroRAF=null}
+}
+setTimeout(()=>{
+  if(window.matchMedia('(min-width:1100px)').matches) startHeroVisual();
+},2200);
+const heroSectionEl=document.getElementById('hero');
+if(heroSectionEl){
+  const heroObs=new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ if(window.matchMedia('(min-width:1100px)').matches) startHeroVisual(); }
+      else { stopHeroVisual(); }
+    });
+  },{threshold:0});
+  heroObs.observe(heroSectionEl);
+}
+
 /* SCROLL REVEAL */
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting) x.target.classList.add('in')}),{threshold:.1});
 document.querySelectorAll('.reveal,.sec-title,.contact-headline').forEach(el=>obs.observe(el));
@@ -731,6 +842,66 @@ const bookFrame=document.getElementById('bookFrame');
 const bookLoading=document.getElementById('bookLoading');
 const bookClose=document.getElementById('bookClose');
 
+/* 3D VISUAL PANEL — desktop only (panel is display:none below 861px,
+   so this never wastes a render loop on mobile). Built once on first
+   open, then just paused/resumed on close/reopen instead of rebuilt. */
+let bookCtx=null, bookRAF=null;
+function setupBookVisual(){
+  if(bookCtx || typeof THREE==='undefined') return;
+  if(!window.matchMedia('(min-width:861px)').matches) return;
+  const canvas=document.getElementById('bookCanvas');
+  if(!canvas) return;
+  const w=canvas.clientWidth||220, h=canvas.clientHeight||240;
+  if(!w||!h) return;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.setSize(w,h,false);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,w/h,0.1,100);
+  camera.position.z=5;
+
+  const mesh=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.5,1),
+    new THREE.MeshBasicMaterial({color:0xb8e0a0,wireframe:true,transparent:true,opacity:.85})
+  );
+  scene.add(mesh);
+
+  const glow=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.5,1),
+    new THREE.MeshBasicMaterial({color:0x52d68a,transparent:true,opacity:.05})
+  );
+  glow.scale.set(1.25,1.25,1.25);
+  scene.add(glow);
+
+  const starCount=70, positions=new Float32Array(starCount*3);
+  for(let i=0;i<starCount;i++){
+    positions[i*3]=(Math.random()-0.5)*7;
+    positions[i*3+1]=(Math.random()-0.5)*7;
+    positions[i*3+2]=(Math.random()-0.5)*7;
+  }
+  const starGeo=new THREE.BufferGeometry();
+  starGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  const stars=new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xb8e0a0,size:.028,transparent:true,opacity:.55}));
+  scene.add(stars);
+
+  bookCtx={renderer,scene,camera,mesh,glow,stars};
+}
+function startBookVisual(){
+  setupBookVisual();
+  if(!bookCtx || bookRAF) return;
+  const {renderer,scene,camera,mesh,glow,stars}=bookCtx;
+  (function tick(){
+    bookRAF=requestAnimationFrame(tick);
+    mesh.rotation.x+=0.0028; mesh.rotation.y+=0.004;
+    glow.rotation.x-=0.0015; glow.rotation.y-=0.002;
+    stars.rotation.y+=0.0006;
+    renderer.render(scene,camera);
+  })();
+}
+function stopBookVisual(){
+  if(bookRAF){cancelAnimationFrame(bookRAF);bookRAF=null}
+}
+
 function openBookingModal(e){
   e.preventDefault();
   if(!bookFrame.src){
@@ -739,10 +910,12 @@ function openBookingModal(e){
   }
   bookOverlay.classList.add('open');
   document.body.style.overflow='hidden';
+  startBookVisual();
 }
 function closeBookingModal(){
   bookOverlay.classList.remove('open');
   document.body.style.overflow='';
+  stopBookVisual();
 }
 document.querySelectorAll('.cal-btn').forEach(b=>b.addEventListener('click',openBookingModal));
 bookClose.addEventListener('click',closeBookingModal);
