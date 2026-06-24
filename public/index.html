@@ -320,7 +320,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 .foot-avail{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--ff-mono);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
 .foot-avail::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 
-/* ── CUSTOM CALENDLY MODAL (own design, Calendly inline embed inside) ── */
+/* ── CUSTOM CAL.COM MODAL (own design, Cal.com inline embed inside) ── */
 .book-overlay{
   position:fixed;inset:0;z-index:8000;
   background:rgba(11,22,16,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -645,7 +645,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 </footer>
 
 <!-- Custom-designed booking modal — themed header/footer are ours,
-     Calendly's inline embed (styled to match) lives inside the body. -->
+     Cal.com's inline booking page (default, unstyled) lives inside the body. -->
 <div class="book-overlay" id="bookOverlay">
   <div class="book-box">
     <div class="book-header">
@@ -716,13 +716,15 @@ window.addEventListener('scroll',()=>{heroBg.style.transform=`translate(-50%,cal
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting) x.target.classList.add('in')}),{threshold:.1});
 document.querySelectorAll('.reveal,.sec-title,.contact-headline').forEach(el=>obs.observe(el));
 
-/* CALENDLY — custom modal, our own header/footer/close button, with
-   Calendly's inline embed (not popup widget) inside, styled via URL
-   params so it visually matches the site instead of showing default
-   white Calendly chrome. Inline embeds are allowed in iframes, unlike
-   a raw link to calendly.com which Calendly blocks via X-Frame-Options. */
-const CAL_BASE='https://calendly.com/skbusiness7866/project-discovery-call';
-const CAL_THEME='?background_color=0f1e14&text_color=f0ece2&primary_color=b8e0a0&hide_gdpr_banner=1';
+/* CAL.COM — custom modal, our own header/footer/close button, with
+   Cal.com's booking page embedded directly via iframe inside. Cal.com
+   allows direct iframing of booking pages (no X-Frame-Options block
+   like Calendly's plain links), so no special "inline embed" path is
+   needed — the plain link works as-is. CAL_THEME left empty per
+   request: this uses Cal.com's own default appearance, not custom
+   site-matched colors. */
+const CAL_BASE='https://cal.com/sufiyan-khan-ai/30min';
+const CAL_THEME='';
 
 const bookOverlay=document.getElementById('bookOverlay');
 const bookFrame=document.getElementById('bookFrame');
@@ -749,4 +751,3 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&bookOverlay.classLi
 </script>
 </body>
 </html>
-
