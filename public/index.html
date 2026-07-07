@@ -455,7 +455,6 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 <nav id="mainNav">
   <div class="nav-logo">SK / AI Engineer</div>
   <div class="nav-right">
-    <a href="#services" class="nav-link">Services</a>
     <a href="#projects" class="nav-link">Work</a>
     <a href="#contact" class="nav-link">Contact</a>
     <button type="button" class="cal-btn" id="navCalBtn"><span>Schedule a Call →</span></button>
@@ -525,53 +524,23 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
   </div>
 </div>
 
-<section id="services" class="section">
-  <div class="sec-header reveal">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title"><span class="line">What I</span><span class="line"><em>build.</em></span></h2>
-  </div>
-  <div class="services-grid">
-    <div class="svc-card reveal reveal-d1">
-      <div class="svc-num">01 — Most Popular</div>
-      <h3 class="svc-title">AI Lead<br>Automation</h3>
-      <p class="svc-desc">Responds to every inquiry in 60 seconds, qualifies the lead, and books a call automatically. Zero manual follow-up. You only talk to people ready to buy.</p>
-      <div class="svc-tags"><span class="svc-tag">ManyChat</span><span class="svc-tag">OpenAI</span><span class="svc-tag">n8n</span><span class="svc-tag">Calendly</span></div>
-      <div class="svc-price">Starting at $299 · 5–7 day delivery</div>
-    </div>
-    <div class="svc-card reveal reveal-d2">
-      <div class="svc-num">02 — Voice AI</div>
-      <h3 class="svc-title">Real-Time<br>Voice Agent</h3>
-      <p class="svc-desc">Custom voice agent that handles calls, answers questions, and routes customers — sub-300ms response, runs 24/7. Built on proven production infrastructure.</p>
-      <div class="svc-tags"><span class="svc-tag">Deepgram STT</span><span class="svc-tag">Groq LLM</span><span class="svc-tag">FastAPI</span><span class="svc-tag">WebSockets</span></div>
-      <div class="svc-price">Starting at $499 · 7–10 day delivery</div>
-    </div>
-    <div class="svc-card reveal reveal-d3">
-      <div class="svc-num">03 — Full Funnel</div>
-      <h3 class="svc-title">AI Sales<br>Funnel System</h3>
-      <p class="svc-desc">Landing page, lead magnet, email nurture, AI chatbot, booking system — all connected. Everything automated from first click to booked call.</p>
-      <div class="svc-tags"><span class="svc-tag">n8n</span><span class="svc-tag">OpenAI</span><span class="svc-tag">Voiceflow</span><span class="svc-tag">ConvertKit</span></div>
-      <div class="svc-price">Starting at $799 · 10–14 day delivery</div>
-    </div>
-  </div>
-</section>
-
 <section id="projects" class="section">
   <div class="sec-header reveal">
-    <span class="sec-num">02</span>
+    <span class="sec-num">01</span>
     <h2 class="sec-title"><span class="line">Production</span><span class="line"><em>work.</em></span></h2>
   </div>
   <div class="proj-list">
     <div class="proj-row reveal">
       <div class="proj-idx">01 — 2026</div>
       <div>
-        <div class="proj-title-row"><span class="proj-name">Real-Time AI Voice Agent</span><span class="proj-live">Live</span></div>
-        <p class="proj-desc">End-to-end voice pipeline at sub-300ms latency. Deepgram streams audio in real time, Groq Llama 3.1 handles inference at 10× the speed of OpenAI. Fault-tolerant with interrupt capability and multi-persona support.</p>
-        <div class="proj-stack"><span class="proj-tag">FastAPI</span><span class="proj-tag">Deepgram Nova-2</span><span class="proj-tag">Groq LLM</span><span class="proj-tag">WebSockets</span><span class="proj-tag">Vercel · Render</span></div>
+        <div class="proj-title-row"><span class="proj-name">Full-Stack Task Manager</span><span class="proj-live">Live</span></div>
+        <p class="proj-desc">A clean CRUD application built on real authentication and strict per-user data isolation — JWT-based auth, category-organized tasks, and Row Level Security enforced at the database layer. No shortcuts: proper error handling, loading states, and a production deploy split across two services.</p>
+        <div class="proj-stack"><span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">Supabase</span><span class="proj-tag">JWT Auth</span><span class="proj-tag">Vercel · Render</span></div>
       </div>
       <div class="proj-aside">
-        <div><div class="proj-metric-val">&lt;300ms</div><div class="proj-metric-label">P95 latency</div></div>
-        <a href="https://ai-voice-agent-roan.vercel.app" target="_blank" rel="noopener" class="proj-btn hi">↗ Demo</a>
-        <a href="https://github.com/SufyTech" target="_blank" rel="noopener" class="proj-btn">Code</a>
+        <div><div class="proj-metric-val">100%</div><div class="proj-metric-label">Per-user isolation</div></div>
+        <a href="https://task-manager-fullstack-sooty.vercel.app" target="_blank" rel="noopener" class="proj-btn hi">↗ Demo</a>
+        <a href="https://github.com/SufyTech/task-manager-fullstack" target="_blank" rel="noopener" class="proj-btn">Code</a>
       </div>
     </div>
     <div class="proj-row reveal reveal-d1">
@@ -590,14 +559,14 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
     <div class="proj-row reveal reveal-d2">
       <div class="proj-idx">03 — 2026</div>
       <div>
-        <div class="proj-title-row"><span class="proj-name">Full-Stack Task Manager</span><span class="proj-live">Live</span></div>
-        <p class="proj-desc">A clean CRUD application built on real authentication and strict per-user data isolation — JWT-based auth, category-organized tasks, and Row Level Security enforced at the database layer. No shortcuts: proper error handling, loading states, and a production deploy split across two services.</p>
-        <div class="proj-stack"><span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">Supabase</span><span class="proj-tag">JWT Auth</span><span class="proj-tag">Vercel · Render</span></div>
+        <div class="proj-title-row"><span class="proj-name">Real-Time AI Voice Agent</span><span class="proj-live">Live</span></div>
+        <p class="proj-desc">End-to-end voice pipeline at sub-300ms latency. Deepgram streams audio in real time, Groq Llama 3.1 handles inference at 10× the speed of OpenAI. Fault-tolerant with interrupt capability and multi-persona support.</p>
+        <div class="proj-stack"><span class="proj-tag">FastAPI</span><span class="proj-tag">Deepgram Nova-2</span><span class="proj-tag">Groq LLM</span><span class="proj-tag">WebSockets</span><span class="proj-tag">Vercel · Render</span></div>
       </div>
       <div class="proj-aside">
-        <div><div class="proj-metric-val">100%</div><div class="proj-metric-label">Per-user isolation</div></div>
-        <a href="https://task-manager-fullstack-sooty.vercel.app" target="_blank" rel="noopener" class="proj-btn hi">↗ Demo</a>
-        <a href="https://github.com/SufyTech/task-manager-fullstack" target="_blank" rel="noopener" class="proj-btn">Code</a>
+        <div><div class="proj-metric-val">&lt;300ms</div><div class="proj-metric-label">P95 latency</div></div>
+        <a href="https://ai-voice-agent-roan.vercel.app" target="_blank" rel="noopener" class="proj-btn hi">↗ Demo</a>
+        <a href="https://github.com/SufyTech" target="_blank" rel="noopener" class="proj-btn">Code</a>
       </div>
     </div>
   </div>
@@ -605,7 +574,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 
 <section id="experience" class="section">
   <div class="sec-header reveal">
-    <span class="sec-num">03</span>
+    <span class="sec-num">02</span>
     <h2 class="sec-title"><span class="line">Where I've</span><span class="line"><em>shipped.</em></span></h2>
   </div>
   <div class="exp-list">
@@ -648,7 +617,7 @@ footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-it
 
 <section id="process" class="section">
   <div class="sec-header reveal">
-    <span class="sec-num">04</span>
+    <span class="sec-num">03</span>
     <h2 class="sec-title"><span class="line">How we</span><span class="line"><em>work.</em></span></h2>
   </div>
   <div class="process-grid">
